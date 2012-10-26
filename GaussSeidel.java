@@ -15,7 +15,7 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* * This class provides a simple implementation of the Jacobi method for solving
+/* * This class provides a simple implementation of the GaussSeidel method for solving
  * systems of linear equations. */
 
 /*
@@ -32,7 +32,7 @@
   and number of variables. You can put this values in a file
   and then execute the program as follows:
 
-  $ java Jacobi < equations.txt
+  $ java GaussSeidel < equations.txt
 
   If the matrix isn't diagonally dominant the program tries
   to convert it(if possible) by rearranging the rows.
@@ -43,12 +43,12 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Jacobi {
+public class GaussSeidel {
 
   public static final int MAX_ITERATIONS = 100;
   private double[][] M;
   
-  public Jacobi(double [][] matrix) { M = matrix; }
+  public GaussSeidel(double [][] matrix) { M = matrix; }
 
   public void print()
   {
@@ -114,7 +114,7 @@ public class Jacobi {
 
 
   /**
-   * Applies Jacobi method to find the solution of the system
+   * Applies GaussSeidel method to find the solution of the system
    * of linear equations represented in matrix M.
    * M is a matrix with the following form:
    * a_11 * x_1 + a_12 * x_2 + ... + a_1n * x_n = b_1
@@ -132,7 +132,6 @@ public class Jacobi {
     double[] X = new double[n]; // Approximations
     double[] P = new double[n]; // Prev
     Arrays.fill(X, 0);
-    Arrays.fill(P, 0);
 
     while (true) {
       for (int i = 0; i < n; i++) {
@@ -140,11 +139,10 @@ public class Jacobi {
 
         for (int j = 0; j < n; j++)
           if (j != i)
-            sum -= M[i][j] * P[j];
+            sum -= M[i][j] * X[j];
 
-        // Update x_i but it's no used in the next row calculation
-        // but up to de next iteration of the method
-        X[i] = 1/M[i][i] * sum;
+        // Update x_i to use in the next row calculation
+        X[i] = 1/M[i][i] * sum;   
       }
 
       System.out.print("X_" + iterations + " = {");
@@ -184,24 +182,17 @@ public class Jacobi {
         M[i][j] = Integer.parseInt(strtk.nextToken());
     }
 
+    
+    GaussSeidel gausSeidel = new GaussSeidel(M);
 
-    
-    
-    
-    
-    Jacobi jacobi = new Jacobi(M);
-
-    if (!jacobi.makeDominant()) {
+    if (!gausSeidel.makeDominant()) {
       writer.println("The system isn't diagonally dominant: " + 
                      "The method cannot guarantee convergence.");
     }
 
     writer.println();
-
-    jacobi.print();
-
-    jacobi.solve();
-
+    gausSeidel.print();
+    gausSeidel.solve();
   }
 }
 

@@ -27,8 +27,6 @@ public class MiddleSquare {
     long seed = Long.parseLong(args[0]);
     int n = Integer.parseInt(args[1]);
 
-    System.out.println("RND");
-
     for (int i = 0; i < n; i++) {
       seed *= seed;
       String digits = String.valueOf(seed);
