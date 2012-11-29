@@ -32,15 +32,15 @@ int main(int argc, char** argv)
   char *device = "/dev/ttyUSB0";
 
   memset(&tio,0,sizeof(tio));
-  tio.c_iflag=0;
-  tio.c_oflag=0;
-  tio.c_cflag=CS8|CREAD|CLOCAL;
-  tio.c_lflag=0;
-  tio.c_cc[VMIN]=1;
-  tio.c_cc[VTIME]=5;
+  tio.c_iflag = 0;
+  tio.c_oflag = 0;
+  tio.c_cflag = CS8|CREAD|CLOCAL;
+  tio.c_lflag = 0;
+  tio.c_cc[VMIN] = 1;
+  tio.c_cc[VTIME] = 5;
 
   
-  tty_fd=open(device, O_RDWR | O_NONBLOCK);      
+  tty_fd = open(device, O_RDWR | O_NONBLOCK);      
   cfsetospeed(&tio,B9600);
   cfsetispeed(&tio,B9600);
 
@@ -49,7 +49,7 @@ int main(int argc, char** argv)
   volumen = 0;
 
   initscr();
-  while (ch[0] !='q')
+  while (ch[0] != 'q')
   {
     read(STDIN_FILENO, ch, 1);
     if (read(tty_fd,&v,1) > 0) {

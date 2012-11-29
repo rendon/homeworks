@@ -28,13 +28,13 @@
 
 
 using namespace std;
-const int MAX_WIDTH = 80;
+const int MAX_WIDTH  = 80;
 const int MAX_HEIGHT = 40;
-const int DOWN  = 8;
-const int LEFT  = 6;
-const int UP    = 10;
-const int RIGHT = 12;
-const int CONTINUE = 0;
+const int DOWN      = 8;
+const int LEFT      = 6;
+const int UP        = 10;
+const int RIGHT     = 12;
+const int CONTINUE  = 0;
 const int DELAY = 500 * 1000; // microseconds
 
 vector< pair<int, int> > snake;
@@ -133,15 +133,15 @@ int main(int argc, char** argv)
   srand(time(0));
 
   memset(&tio,0,sizeof(tio));
-  tio.c_iflag=0;
-  tio.c_oflag=0;
-  tio.c_cflag=CS8|CREAD|CLOCAL;
-  tio.c_lflag=0;
-  tio.c_cc[VMIN]=1;
-  tio.c_cc[VTIME]=5;
+  tio.c_iflag = 0;
+  tio.c_oflag = 0;
+  tio.c_cflag = CS8|CREAD|CLOCAL;
+  tio.c_lflag = 0;
+  tio.c_cc[VMIN] = 1;
+  tio.c_cc[VTIME] = 5;
 
 
-  tty_fd=open(device, O_RDWR | O_NONBLOCK);      
+  tty_fd = open(device, O_RDWR | O_NONBLOCK);      
   cfsetospeed(&tio,B9600);
   cfsetispeed(&tio,B9600);
 
