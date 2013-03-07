@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 Rafael Rendón Pablo <smart.rendon@gmail.com>
+ *  Copyright (C) 2013 Rafael Rendón Pablo <smart.rendon@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,15 +26,22 @@ public class MiddleSquare {
 
     long seed = Long.parseLong(args[0]);
     int n = Integer.parseInt(args[1]);
+    int k = args[0].length();
+    System.out.println("k = " + k);
 
     for (int i = 0; i < n; i++) {
       seed *= seed;
       String digits = String.valueOf(seed);
-      while (digits.length() < 11) // Zeros to the right
-        digits += "0";
+      while (digits.length() < k + k) // Add leading zeros
+        digits = "0" + digits;
+
+      if (k%2 == 1)
+        digits = "0" + digits;
 
       String center = "";
-      for (int j = 3; j < 8; j++)
+      int l = (digits.length() - k)/2;
+      int r = l + k;
+      for (int j = l; j < r; j++)
         center += digits.charAt(j);
 
       System.out.println(center);
